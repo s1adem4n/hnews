@@ -1,0 +1,15 @@
+.comment * a {
+	@apply underline;
+}
+
+.comment * a:hover {
+	@apply no-underline;
+}
+
+.comment > p {
+	@apply pt-1;
+}
+
+body {
+	@apply bg-base text-text;
+}
