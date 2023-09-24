@@ -5,7 +5,7 @@
 	export let story: Item;
 </script>
 
-<p class="text-sm text-subtext0">
+<p class="text-sm text-subtext0 hover:underline">
 	by {story.by} | {story.score} points | {story.descendants || 0} comments | {getTimeAgo(
 		story.time || 0
 	)}
