@@ -25,7 +25,7 @@
 		>
 			<img
 				bind:this={favicon}
-				src="http://www.google.com/s2/favicons?domain={hostname}"
+				src="https://www.google.com/s2/favicons?domain={hostname}"
 				loading="lazy"
 				alt=""
 				class="aspect-square h-full w-auto rounded-full max-h-4"
