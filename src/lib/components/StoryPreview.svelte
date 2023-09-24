@@ -25,7 +25,7 @@
 		>
 			<img
 				bind:this={favicon}
-				src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://{hostname}&size=20"
+				src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://{hostname}&size=32"
 				loading="lazy"
 				alt=""
 				class="aspect-square h-full max-h-[20px] w-auto rounded-full"
