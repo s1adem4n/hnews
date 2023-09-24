@@ -1,13 +1,13 @@
-.comment * a {
+.comment :where(a) {
 	@apply underline;
 }
 
-.comment * a:hover {
-	@apply no-underline;
+.comment :where(p) {
+	@apply pt-1;
 }
 
-.comment > p {
-	@apply pt-1;
+.comment :where(a:hover) {
+	@apply no-underline;
 }
 
 body {

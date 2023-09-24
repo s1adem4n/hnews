@@ -2,7 +2,7 @@ import { getItem } from '$lib/api/items';
 import { resolveStoryComments } from '$lib/api/comments';
 import { error } from '@sveltejs/kit';
 
-export const load = async ({ params }) => {
+export const load = async ({ params, setHeaders }) => {
 	const id = parseInt(params.id);
 	const story = await getItem(id);
 
@@ -12,9 +12,12 @@ export const load = async ({ params }) => {
 
 	const comments = resolveStoryComments(story);
 
+	setHeaders({
+		'Cache-Control': 'public, max-age=60'
+	});
+
 	return {
 		story,
-
 		comments
 	};
 };

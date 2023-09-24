@@ -1,39 +1,39 @@
 <script lang="ts">
 	import { CATEGORIES, getStoryPage } from '$lib/api/stories';
 	import { stories } from '$lib/stores';
-	import { navigating } from '$app/stores';
 	import StoryPreview from '$lib/components/StoryPreview.svelte';
+	import { onMount } from 'svelte';
 
 	export let data;
-	$: {
-		updateStories(data.stories);
-	}
-
-	const updateStories = (newData: any[]) => {
-		if (data.category !== $stories.category) {
-			$stories.stories = newData;
-			$stories.category = data.category;
-		}
-		loading = false;
-	};
 
 	let page = data.page;
 	let scrollProgress = 0;
 	let loading = false;
 
-	$: if (scrollProgress > 0.7) {
-		if (!loading) {
-			console.log('loading');
-			loading = true;
-			getStoryPage(data.category, page + 1).then((newData) => {
-				$stories.stories = [...$stories.stories, ...newData];
-				page++;
-				setTimeout(() => {
-					loading = false;
-					console.log('done loading');
-				}, 5000);
-			});
-		}
+	$: if ($stories[data.category].length === 0) {
+		loading = true;
+	} else {
+		loading = false;
+	}
+
+	$: {
+		data.streamed.stories.then((stories) => {
+			if ($stories[data.category].length === 0) {
+				$stories[data.category] = stories;
+			}
+		});
+	}
+
+	$: if (scrollProgress > 0.6 && !loading) {
+		loading = true;
+		page++;
+		getStoryPage(data.category, page).then((stories) => {
+			$stories[data.category] = [...$stories[data.category], ...stories];
+			// prevent fast scrolling from triggering multiple loads
+			setTimeout(() => {
+				loading = false;
+			}, 3000);
+		});
 	}
 
 	const handleScroll = () => {
@@ -64,21 +64,17 @@
 			</a>
 		{/each}
 	</div>
+	<noscript>
+		<a href="/{data.category}/1" class="underline"> No JS? Enter paginated view -> </a>
+	</noscript>
 
-	{#if !$navigating}
-		{#each $stories.stories as story}
-			{#if story}
-				<StoryPreview {story} />
-			{/if}
-		{/each}
-		{#if loading}
-			<div class="flex justify-center">
-				<div
-					class="w-6 h-6 border-2 border-t-2 border-peach border-dotted rounded-full animate-spin"
-				/>
-			</div>
+	{#each $stories[data.category] as story}
+		{#if story}
+			<StoryPreview {story} />
 		{/if}
-	{:else}
+	{/each}
+
+	{#if loading}
 		<div class="flex justify-center">
 			<div
 				class="w-6 h-6 border-2 border-t-2 border-peach border-dotted rounded-full animate-spin"

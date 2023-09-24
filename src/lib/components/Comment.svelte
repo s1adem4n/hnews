@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import type { Comment } from '$lib/api/comments';
 	import { getTimeAgo } from '$lib/utils';
 
@@ -12,8 +14,11 @@
 </script>
 
 {#if text}
-	<div style="padding-left: {1.5 * depth}rem;">
-		<div class="w-full mt-2 px-2 flex flex-col gap-1 border-l-2 border-surface0">
+	<div style="padding-left: {1.5 * depth}rem;" id="comment{comment.id}">
+		<div
+			class="w-full mt-2 px-2 flex flex-col gap-1 border-l-2 border-surface0"
+			class:bg-mantle={$page.url.hash === `#comment${comment.id}`}
+		>
 			<div class="flex gap-1 text-peach">
 				<a
 					href="https://news.ycombinator.com/user?id={comment.by}"
@@ -29,6 +34,16 @@
 				<span class="text-gray">|</span>
 				<button class="font-mono" on:click={() => (collapsed = !collapsed)}>
 					{collapsed ? '[+]' : '[-]'}
+				</button>
+				<span class="text-gray">|</span>
+				<button
+					on:click={() => {
+						const url = `${$page.url.protocol}//${$page.url.host}${$page.url.pathname}#comment${comment.id}`;
+						navigator.clipboard.writeText(url);
+						goto(url, { replaceState: true });
+					}}
+				>
+					Copy Link
 				</button>
 			</div>
 			{#if !collapsed}
