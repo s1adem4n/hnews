@@ -16,10 +16,10 @@
 {#if text}
 	<div style="padding-left: {1 * depth}rem;" id="comment{comment.id}">
 		<div
-			class="w-full mt-2 px-2 flex flex-col gap-1 border-l-2 border-surface0"
+			class="w-full mt-2 px-2 flex flex-col border-l-2 border-surface0"
 			class:bg-mantle={$page.url.hash === `#comment${comment.id}`}
 		>
-			<div class="flex gap-1 text-peach">
+			<div class="flex gap-1 text-peach text-sm">
 				<a
 					href="https://news.ycombinator.com/user?id={comment.by}"
 					target="_blank"
@@ -32,7 +32,7 @@
 					{getTimeAgo(comment.time || 0)}
 				</span>
 				<span class="text-gray">|</span>
-				<button class="font-mono" on:click={() => (collapsed = !collapsed)}>
+				<button class="font-mono hover:underline" on:click={() => (collapsed = !collapsed)}>
 					{collapsed ? '[+]' : '[-]'}
 				</button>
 				<span class="text-gray">|</span>
