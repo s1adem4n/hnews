@@ -25,10 +25,10 @@
 		>
 			<img
 				bind:this={favicon}
-				src="https://www.google.com/s2/favicons?domain={hostname}"
+				src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://{hostname}&size=20"
 				loading="lazy"
 				alt=""
-				class="aspect-square h-full w-auto rounded-full max-h-4"
+				class="aspect-square h-full max-h-[20px] w-auto rounded-full"
 			/>
 			<span>
 				{hostname}
