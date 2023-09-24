@@ -5,6 +5,6 @@
 	const { story, comments } = data;
 </script>
 
-<main class="p-4">
+<main class="flex flex-col w-full max-w-4xl gap-2 mx-auto p-2">
 	<Story {story} {comments} />
 </main>

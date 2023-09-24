@@ -25,4 +25,9 @@ const getTimeAgo = (time: number) => {
 	return `${smallest.value}${smallest.name}`;
 };
 
-export { getTimeAgo };
+const getFavicon = (url: string) => {
+	const hostname = new URL(url).hostname;
+	return `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${hostname}&size=32`;
+};
+
+export { getTimeAgo, getFavicon };

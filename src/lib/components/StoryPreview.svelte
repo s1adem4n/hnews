@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { preloadCode } from '$app/navigation';
 	import type { Item } from '$lib/api/items';
+	import { getFavicon } from '$lib/utils';
 	import StoryStats from './StoryStats.svelte';
 
 	export let story: Item;
@@ -25,7 +26,7 @@
 		>
 			<img
 				bind:this={favicon}
-				src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://{hostname}&size=32"
+				src={getFavicon(story.url)}
 				loading="lazy"
 				alt=""
 				class="aspect-square h-full max-h-[20px] w-auto rounded-full"

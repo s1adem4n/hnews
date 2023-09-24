@@ -14,7 +14,7 @@
 </script>
 
 {#if text}
-	<div style="padding-left: {1.5 * depth}rem;" id="comment{comment.id}">
+	<div style="padding-left: {1 * depth}rem;" id="comment{comment.id}">
 		<div
 			class="w-full mt-2 px-2 flex flex-col gap-1 border-l-2 border-surface0"
 			class:bg-mantle={$page.url.hash === `#comment${comment.id}`}
