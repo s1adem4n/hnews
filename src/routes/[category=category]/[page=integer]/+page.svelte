@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex flex-col w-full max-w-lg gap-2 mx-auto p-2">
-	<CategoryBar category={data.category} />
+	<CategoryBar category={data.category} paginated />
 
 	{#each data.stories as story}
 		{#if story}

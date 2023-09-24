@@ -2,6 +2,7 @@
 	import { CATEGORIES, type StoryCategory } from '$lib/api/stories';
 
 	export let category: StoryCategory;
+	export let paginated: boolean = false;
 </script>
 
 <div
@@ -14,7 +15,11 @@
 			CATEGORIES.indexOf(category)}%"
 	/>
 	{#each CATEGORIES as CATEGORY, i}
-		<a href="/{category}/1" class="flex-1 text-center py-2" class:font-bold={CATEGORY === category}>
+		<a
+			href="/{CATEGORY}{paginated ? '/1' : ''}"
+			class="flex-1 text-center py-2"
+			class:font-bold={CATEGORY === category}
+		>
 			{CATEGORY}
 		</a>
 	{/each}
