@@ -8,13 +8,6 @@
 	let hostname = '';
 
 	$: hostname = story.url ? new URL(story.url).hostname : '';
-
-	$: {
-		if (favicon && hostname) {
-			favicon.src = `https://${hostname}/favicon.ico`;
-			favicon.onerror = favicon.remove;
-		}
-	}
 </script>
 
 <div
@@ -32,7 +25,7 @@
 		>
 			<img
 				bind:this={favicon}
-				src="https://{hostname}/favicon.ico"
+				src="http://www.google.com/s2/favicons?domain={hostname}"
 				loading="lazy"
 				alt=""
 				class="aspect-square h-full w-auto rounded-full max-h-4"
