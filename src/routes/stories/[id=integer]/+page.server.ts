@@ -14,8 +14,7 @@ export const load = async ({ params }) => {
 
 	return {
 		story,
-		streamed: {
-			comments
-		}
+
+		comments
 	};
 };

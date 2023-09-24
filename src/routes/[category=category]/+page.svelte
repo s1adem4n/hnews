@@ -4,6 +4,7 @@
 	import { CATEGORIES, getStoryPage } from '$lib/api/stories';
 	import { stories } from '$lib/stores';
 	import { navigating } from '$app/stores';
+	import StoryPreview from '$lib/components/StoryPreview.svelte';
 
 	export let data;
 	$: {
@@ -24,11 +25,15 @@
 
 	$: if (scrollProgress > 0.7) {
 		if (!loading) {
+			console.log('loading');
 			loading = true;
-			getStoryPage(data.category, page + 1).then((res) => {
-				$stories.stories = [...$stories.stories, ...res];
-				page += 1;
-				loading = false;
+			getStoryPage(data.category, page + 1).then((newData) => {
+				$stories.stories = [...$stories.stories, ...newData];
+				page++;
+				setTimeout(() => {
+					loading = false;
+					console.log('done loading');
+				}, 5000);
 			});
 		}
 	}
@@ -41,15 +46,21 @@
 
 <svelte:window on:scroll={handleScroll} />
 
-<div class="flex flex-col w-full max-w-lg gap-2 mx-auto py-2">
-	<div class="flex w-full rounded-md bg-mantle">
-		{#each CATEGORIES as category}
+<div class="flex flex-col w-full max-w-lg gap-2 mx-auto p-2">
+	<div
+		class="relative flex w-full rounded-md bg-mantle border border-surface0 hover:border-orange transition-colors"
+	>
+		<!-- category indicator -->
+		<div
+			class="absolute bottom-0 h-1 bg-orange rounded-md transition-all"
+			style="width: {100 / CATEGORIES.length}%; left: {(100 / CATEGORIES.length) *
+				CATEGORIES.indexOf(data.category)}%"
+		/>
+		{#each CATEGORIES as category, i}
 			<a
 				href="/{category}"
-				class="flex-1 text-center py-2 border-b-4"
+				class="flex-1 text-center py-2"
 				class:font-bold={category === data.category}
-				class:border-transparent={category !== data.category}
-				class:border-orange={category === data.category}
 			>
 				{category}
 			</a>
@@ -59,45 +70,7 @@
 	{#if !$navigating}
 		{#each $stories.stories as story}
 			{#if story}
-				<div class="flex flex-col gap-1 p-2 border border-crust rounded-md">
-					{#if story.url}
-						{#await getOgImage(story.url) then ogImage}
-							{#if ogImage}
-								<div class="w-full h-64">
-									<img
-										src={ogImage}
-										alt={story.title}
-										class="w-auto h-auto max-w-full max-h-full h-64 object-contain rounded-md rounded-md mx-auto"
-									/>
-								</div>
-							{/if}
-						{/await}
-
-						<a
-							href={story.url}
-							target="_blank"
-							class="text-lg font-bold hover:underline break-words">{story.title}</a
-						>
-					{:else}
-						<p class="text-lg font-bold">
-							{story.title}
-						</p>
-					{/if}
-					<a href="/stories/{story.id}" class="text-sm text-gray-500 flex items-center gap-2">
-						<span class="flex items-center gap-0.5">
-							<ArrowUp size="1em" />
-							{story.score}
-						</span>
-						<span class="flex items-center gap-0.5">
-							<MessageCircle size="1em" />
-							{story.descendants || 0}
-						</span>
-						<span class="flex items-center gap-0.5">
-							<Clock size="1em" />
-							{getTimeAgo(story.time || 0)}
-						</span>
-					</a>
-				</div>
+				<StoryPreview {story} />
 			{/if}
 		{/each}
 		{#if loading}

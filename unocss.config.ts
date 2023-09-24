@@ -4,7 +4,7 @@ import { variants } from '@catppuccin/palette';
 
 const colors = {};
 
-Object.entries(variants.latte).forEach(([key, value]) => {
+Object.entries(variants.mocha).forEach(([key, value]) => {
 	colors[key] = value.hex;
 });
 

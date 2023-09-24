@@ -31,7 +31,6 @@ const getTimeAgo = (time: number) => {
 const getOgImage = async (url: string) => {
 	const images = get(ogImages);
 	if (images[url] !== undefined) {
-		console.log('cache hit', url);
 		return images[url];
 	}
 	const res = await fetch(`/ogimage?url=${encodeURIComponent(url)}`);

@@ -1,7 +1,10 @@
 import { error, json } from '@sveltejs/kit';
 import { cache } from './cache.js';
 
-export const GET = async ({ url }) => {
+export const GET = async ({ url, setHeaders }) => {
+	setHeaders({
+		'Cache-Control': 'public, max-age=3600'
+	});
 	const urlParam = url.searchParams.get('url');
 	if (!urlParam) {
 		throw error(400, 'Missing url parameter');
@@ -9,8 +12,8 @@ export const GET = async ({ url }) => {
 	if (urlParam.startsWith('https://twitter.com')) {
 		return json({ ogImage: null });
 	}
+	// this avoids the twitter redirect which breaks fetch for some reason
 	if (cache[urlParam] !== undefined) {
-		console.log('cache hit', urlParam);
 		return json({ ogImage: cache[urlParam] });
 	}
 	console.log('fetching', urlParam);
@@ -22,7 +25,6 @@ export const GET = async ({ url }) => {
 	const ogImageMatch = text.match(/<meta\s+property="og:image"\s+content="([^"]+)"\s*\/?>/i);
 	let ogImage = ogImageMatch ? ogImageMatch[1] : null;
 	if (ogImage?.startsWith('/')) {
-		console.log('relative url', ogImage);
 		ogImage = null;
 	}
 	cache[urlParam] = ogImage;
