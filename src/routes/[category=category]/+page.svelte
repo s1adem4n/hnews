@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { Clock, ArrowUp, MessageCircle } from 'lucide-svelte';
-	import { getOgImage, getTimeAgo } from '$lib/utils';
 	import { CATEGORIES, getStoryPage } from '$lib/api/stories';
 	import { stories } from '$lib/stores';
 	import { navigating } from '$app/stores';

@@ -7,6 +7,4 @@ const stories = writable<{ category: StoryCategory | null; stories: (Item | null
 	stories: []
 });
 
-const ogImages = writable<{ [key: string]: string | null }>({});
-
-export { stories, ogImages };
+export { stories };

@@ -1,33 +1,31 @@
 <script lang="ts">
-	import Image from './Image.svelte';
 	import type { Item } from '$lib/api/items';
-	import { getOgImage, getTimeAgo } from '$lib/utils';
+	import { getTimeAgo } from '$lib/utils';
 	import { ArrowUp, Clock, MessageCircle } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 
 	export let story: Item;
+	let favicon: HTMLImageElement;
+
+	const hostname = story.url ? new URL(story.url).hostname : '';
+
+	onMount(() => {
+		favicon.src = `https://${hostname}/favicon.ico`;
+		favicon.onerror = favicon.remove;
+	});
 </script>
 
 <div
 	class="flex flex-col gap-1 p-2 border border-surface0 hover:border-orange rounded-md transition-colors"
 >
 	{#if story.url}
-		{@const hostname = new URL(story.url).hostname}
-		{#await getOgImage(story.url) then ogImage}
-			{#if ogImage}
-				<Image src={ogImage} alt={story.title || hostname} />
-			{/if}
-		{/await}
 		<a
 			href={story.url}
 			class="flex h-5 items-center gap-1 text-subtext0 hover:underline"
 			target="_blank"
 		>
 			<img
-				src="https://{hostname}/favicon.ico"
-				on:error={(e) => {
-					console.log(e);
-					e.currentTarget.remove();
-				}}
+				bind:this={favicon}
 				loading="lazy"
 				alt=""
 				class="aspect-square h-full w-auto rounded-full max-h-4"
