@@ -43,7 +43,10 @@
 			{story.title}
 		</p>
 	{/if}
-	<a href="/stories/{story.id}" class="text-sm text-subtext0 flex items-center gap-2">
+	<a
+		href="/stories/{story.id}"
+		class="text-sm text-subtext0 flex items-center gap-2 hover:underline"
+	>
 		<StoryStats {story} />
 	</a>
 </div>
