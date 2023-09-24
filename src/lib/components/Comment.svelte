@@ -42,8 +42,9 @@
 						navigator.clipboard.writeText(url);
 						goto(url, { replaceState: true });
 					}}
+					class="hover:underline"
 				>
-					Copy Link
+					link
 				</button>
 			</div>
 			{#if !collapsed}
