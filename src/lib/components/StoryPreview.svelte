@@ -12,7 +12,7 @@
 </script>
 
 <div
-	class="flex flex-col gap-1 p-2 border border-surface0 hover:border-orange rounded-md transition-colors"
+	class="flex flex-col gap-1 p-2"
 	on:mouseover={() => preloadCode(`/stories/${story.id}`)}
 	on:focus={() => preloadCode(`/stories/${story.id}`)}
 	tabindex="-1"

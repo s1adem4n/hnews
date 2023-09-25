@@ -5,9 +5,7 @@
 	export let paginated: boolean = false;
 </script>
 
-<div
-	class="relative flex w-full rounded-md bg-mantle border border-surface0 hover:border-orange transition-colors"
->
+<div class="relative flex w-full rounded-md bg-mantle">
 	<!-- category indicator -->
 	<div
 		class="absolute bottom-0 h-1 bg-orange rounded-md transition-all"

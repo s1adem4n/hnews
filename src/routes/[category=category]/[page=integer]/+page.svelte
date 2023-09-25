@@ -8,9 +8,12 @@
 <div class="flex flex-col w-full max-w-lg gap-2 mx-auto p-2">
 	<CategoryBar category={data.category} paginated />
 
-	{#each data.stories as story}
+	{#each data.stories as story, i}
 		{#if story}
 			<StoryPreview {story} />
+		{/if}
+		{#if i !== data.stories.length - 1}
+			<div class="w-full h-[1px] bg-surface0" />
 		{/if}
 	{/each}
 	<div class="flex items-center justify-between text-lg">

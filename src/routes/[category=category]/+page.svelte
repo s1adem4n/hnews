@@ -51,9 +51,12 @@
 		<a href="/{data.category}/1" class="underline"> No JS? Enter paginated view -> </a>
 	</noscript>
 
-	{#each $stories[data.category] as story}
+	{#each $stories[data.category] as story, i}
 		{#if story}
 			<StoryPreview {story} />
+		{/if}
+		{#if i !== $stories[data.category].length - 1}
+			<div class="w-full h-[1px] bg-surface0" />
 		{/if}
 	{/each}
 
