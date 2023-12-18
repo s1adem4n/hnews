@@ -21,7 +21,7 @@
 	{#if story.url}
 		<a
 			href="https://{hostname}"
-			class="flex h-5 items-center gap-1 text-subtext0 hover:underline"
+			class="flex h-5 items-center gap-1 text-subtext0 text-sm hover:underline"
 			target="_blank"
 		>
 			<img
@@ -29,7 +29,7 @@
 				src={getFavicon(story.url)}
 				loading="lazy"
 				alt=""
-				class="aspect-square h-full max-h-[20px] w-auto rounded-full"
+				class="aspect-square h-full max-h-[16px] w-auto rounded-full"
 			/>
 			<span>
 				{hostname}
