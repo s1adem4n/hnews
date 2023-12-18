@@ -11,8 +11,6 @@
 	let scrollProgress = 0;
 	let loading = false;
 
-	$: console.log(loading);
-
 	$: if ($stories[data.category].length === 0) {
 		loading = true;
 	} else {
