@@ -11,6 +11,8 @@
 	let scrollProgress = 0;
 	let loading = false;
 
+	$: console.log(loading);
+
 	$: if ($stories[data.category].length === 0) {
 		loading = true;
 	} else {
@@ -56,7 +58,7 @@
 			<StoryPreview {story} />
 		{/if}
 		{#if i !== $stories[data.category].length - 1}
-			<div class="w-full h-[1px] bg-surface0" />
+			<div class="w-full h-px bg-surface0" />
 		{/if}
 	{/each}
 

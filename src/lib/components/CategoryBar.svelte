@@ -5,7 +5,7 @@
 	export let paginated: boolean = false;
 </script>
 
-<div class="w-full sticky top-0">
+<div class="w-full sticky top-2">
 	<div class="relative flex w-full rounded-md bg-mantle">
 		<!-- category indicator -->
 		<div
